@@ -3,13 +3,18 @@ package blogic;
 public class FlatFigure {
     double a,b,c,d;
     int al,bet;
+    FFHelp ffhelp;
 
     public FlatFigure(double a, double b, double c) {
         this.a = a;
         this.b = b;
         this.c = c;
-        if (c<a+b && b<c+a && a<c+b)    System.out.println("ok Triangle");
-        else System.out.println("bad Triangle");
+        if (new FFHelp().isTriangle(a,b,c)){
+            System.out.println("ok Triangle");
+        }
+        else {
+            System.out.println("bad Triangle");
+        }
     }
     public FlatFigure(double a, double b, int alfa) {
         this.a = a;
@@ -31,27 +36,19 @@ public class FlatFigure {
         this.b = b;
         this.c = a;
         this.d = b;
-        if (alfa+betta==180) 
-                System.out.println("ok Parallelogram");
-        else    System.out.println("bad Parallelogram");
-        
         this.al= alfa;
         this.bet=betta;
+        if (new FFHelp().isParallelogram(al,bet))
+            System.out.println("ok Parallelogram");
+        else    System.out.println("bad Parallelogram");
+
     }
-    
-    public double area() {
-        double s=0;
-        if (d==0) {
-            if (al==90) s=0.5*a*b;
-            else {
-                double p=(a+b+c)/2;
-                s=Math.sqrt(p*(p-a)*(p-b)*(p-c));
-            }
-        }
-        else if (al==90 && bet==90 && a==c && b==d) { s=a*b; }
-             else { s=a*b*Math.sin(al*Math.PI/180); }
-            
-        return s;
+
+    public double area(){
+        FFHelp helper = new FFHelp();
+        return helper.area(this);
     }
+
+
 
 }
